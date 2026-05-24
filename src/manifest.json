@@ -10,7 +10,7 @@
     "linux": {
       "type": "container",
       "container": {
-        "image": "ghcr.io/piphi/piphi-mqtt-broker:0.1.0",
+        "image": "piphinetwork/mqtt-broker:0.1.0",
         "ports": [
           { "container": 1883, "host": 1883 }
         ],
@@ -66,4 +66,3 @@
     }
   }
 }
-

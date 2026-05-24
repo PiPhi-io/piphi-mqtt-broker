@@ -53,7 +53,7 @@ npm test
 ## Docker Build
 
 ```bash
-docker build -t piphi-mqtt-broker .
+docker build -t piphinetwork/mqtt-broker:0.1.0 .
 ```
 
 ## Example Run
@@ -63,7 +63,7 @@ docker run --rm \
   -p 1883:1883 \
   -e MQTT_USERNAME=piphi \
   -e MQTT_PASSWORD=changeme \
-  piphi-mqtt-broker
+  piphinetwork/mqtt-broker:0.1.0
 ```
 
 By default, anonymous MQTT clients are disabled. If you do not want to set credentials for local testing, start the broker with:
@@ -72,8 +72,12 @@ By default, anonymous MQTT clients are disabled. If you do not want to set crede
 docker run --rm \
   -p 1883:1883 \
   -e MQTT_ALLOW_ANONYMOUS=true \
-  piphi-mqtt-broker
+  piphinetwork/mqtt-broker:0.1.0
 ```
+
+## Release
+
+Use the GitHub Actions `Release` workflow to publish `piphinetwork/mqtt-broker:<version>` to Docker Hub, tag the repo, and create a GitHub release. Choose `current` for the first `0.1.0` publish, or choose a semantic version bump for later releases.
 
 ## Platform Service Manifest
 
