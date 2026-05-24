@@ -5,19 +5,33 @@
   "name": "MQTT Broker",
   "description": "Shared MQTT broker for PiPhi integrations and helpers.",
   "version": "0.1.0",
-  "platforms": ["linux"],
+  "platforms": [
+    "linux"
+  ],
   "runtime": {
     "linux": {
       "type": "container",
       "container": {
         "image": "piphinetwork/mqtt-broker:0.1.0",
         "ports": [
-          { "container": 1883, "host": 1883 }
+          {
+            "container": 1883,
+            "host": 1883
+          }
         ],
         "volumes": [
-          { "host": "/var/lib/piphi/mqtt/config", "container": "/mosquitto/config" },
-          { "host": "/var/lib/piphi/mqtt/data", "container": "/mosquitto/data" },
-          { "host": "/var/lib/piphi/mqtt/log", "container": "/mosquitto/log" }
+          {
+            "host": "/var/lib/piphi/mqtt/config",
+            "container": "/mosquitto/config"
+          },
+          {
+            "host": "/var/lib/piphi/mqtt/data",
+            "container": "/mosquitto/data"
+          },
+          {
+            "host": "/var/lib/piphi/mqtt/log",
+            "container": "/mosquitto/log"
+          }
         ],
         "restart_policy": {
           "name": "unless-stopped"
@@ -28,7 +42,9 @@
   "config": {
     "schema": {
       "type": "object",
-      "required": ["listener_port"],
+      "required": [
+        "listener_port"
+      ],
       "properties": {
         "listener_port": {
           "type": "integer",
