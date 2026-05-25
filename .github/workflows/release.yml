@@ -6,7 +6,7 @@ on:
       release_type:
         description: Semantic version action
         required: true
-        default: current
+        default: patch
         type: choice
         options:
           - current
@@ -137,11 +137,11 @@ jobs:
           set -euo pipefail
           TAG="v${{ steps.version.outputs.version }}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists locally." >&2
+            echo "Tag $TAG already exists locally. Choose release_type=patch, minor, major, or custom with a new version." >&2
             exit 1
           fi
           if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists on origin." >&2
+            echo "Tag $TAG already exists on origin. Choose release_type=patch, minor, major, or custom with a new version." >&2
             exit 1
           fi
 
