@@ -49,25 +49,30 @@
         "listener_port": {
           "type": "integer",
           "title": "MQTT Port",
+          "x-env": "MQTT_PORT",
           "default": 1883
         },
         "allow_anonymous": {
           "type": "boolean",
           "title": "Allow Anonymous Clients",
+          "x-env": "MQTT_ALLOW_ANONYMOUS",
           "default": false
         },
         "username": {
           "type": "string",
-          "title": "Broker Username"
+          "title": "Broker Username",
+          "x-env": "MQTT_USERNAME"
         },
         "password": {
           "type": "string",
           "title": "Broker Password",
-          "format": "password"
+          "format": "password",
+          "x-env": "MQTT_PASSWORD"
         },
         "topic_prefix": {
           "type": "string",
           "title": "Topic Prefix",
+          "x-env": "MQTT_TOPIC_PREFIX",
           "default": "piphi"
         }
       }
