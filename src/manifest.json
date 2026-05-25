@@ -11,6 +11,9 @@
   "runtime": {
     "linux": {
       "type": "container",
+      "health": {
+        "type": "none"
+      },
       "container": {
         "image": "piphinetwork/mqtt-broker:0.1.1",
         "ports": [
