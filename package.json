@@ -1,6 +1,6 @@
 {
   "name": "piphi-mqtt-broker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Managed MQTT broker platform service for PiPhi.",
   "type": "module",
@@ -20,4 +20,3 @@
     "typescript": "^5.8.3"
   }
 }
-
