@@ -18,7 +18,8 @@ COPY --from=build /app/node_modules ./node_modules
 
 RUN apk add --no-cache mosquitto mosquitto-clients \
     && chmod +x /app/docker/entrypoint.sh \
-    && mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log
+    && mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log \
+    && chown -R mosquitto:mosquitto /mosquitto/config /mosquitto/data /mosquitto/log
 
 ENV MQTT_HOST=0.0.0.0 \
     MQTT_PORT=1883 \

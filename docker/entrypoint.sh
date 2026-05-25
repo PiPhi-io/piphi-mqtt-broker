@@ -16,4 +16,13 @@ if [ -n "${MQTT_USERNAME:-}" ] && [ -n "${MQTT_PASSWORD:-}" ]; then
   fi
 fi
 
+if id mosquitto >/dev/null 2>&1; then
+  for path in /mosquitto/config /mosquitto/data /mosquitto/log; do
+    mkdir -p "$path"
+    chown -R mosquitto:mosquitto "$path" 2>/dev/null || {
+      echo "warning: unable to update ownership for $path" >&2
+    }
+  done
+fi
+
 exec mosquitto -c "${MQTT_CONFIG_OUTPUT:-/mosquitto/config/mosquitto.conf}"
