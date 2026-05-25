@@ -1,16 +1,23 @@
-FROM node:20-alpine
-
-RUN apk add --no-cache mosquitto mosquitto-clients
+FROM --platform=$BUILDPLATFORM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package.json tsconfig.json ./
+COPY package.json package-lock.json tsconfig.json ./
 COPY src ./src
+
+RUN npm ci && npm run build && npm prune --omit=dev
+
+FROM node:20-alpine
+
+WORKDIR /app
+
 COPY docker ./docker
+COPY package.json ./
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
 
-RUN npm install && npm run build && npm prune --omit=dev
-
-RUN chmod +x /app/docker/entrypoint.sh \
+RUN apk add --no-cache mosquitto mosquitto-clients \
+    && chmod +x /app/docker/entrypoint.sh \
     && mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log
 
 ENV MQTT_HOST=0.0.0.0 \
@@ -28,4 +35,3 @@ EXPOSE 1883
 VOLUME ["/mosquitto/config", "/mosquitto/data", "/mosquitto/log"]
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
-
