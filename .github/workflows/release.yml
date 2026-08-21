@@ -169,10 +169,17 @@ jobs:
           echo "Set the DOCKERHUB_OIDC_CONNECTIONID organization variable before releasing." >&2
           exit 1
 
+      - name: Exchange Docker Hub OIDC token
+        id: docker_oidc
+        uses: docker/oidc-action@v1
+        with:
+          connection_id: ${{ env.DOCKERHUB_OIDC_CONNECTIONID }}
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v4.5.0
         with:
           username: piphinetwork
+          password: ${{ steps.docker_oidc.outputs.token }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
