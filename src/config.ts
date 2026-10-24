@@ -53,6 +53,16 @@ function readPort(rawValue: string | undefined, fallback: number): number {
   return parsed;
 }
 
+function readManagedPort(env: NodeJS.ProcessEnv): number {
+  if (env.PORT === undefined) return readPort(env.MQTT_PORT, DEFAULTS.port);
+  if (!/^\d+$/.test(env.PORT)) throw new Error(`Invalid managed runtime PORT: ${env.PORT}`);
+  const parsed = Number(env.PORT);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 65535) {
+    throw new Error(`Invalid managed runtime PORT: ${env.PORT}`);
+  }
+  return parsed;
+}
+
 function readOptionalString(rawValue: string | undefined): string | null {
   if (rawValue === undefined) {
     return null;
@@ -67,7 +77,7 @@ export function loadBrokerConfig(
 ): BrokerConfig {
   const config = {
     host: env.MQTT_HOST?.trim() || DEFAULTS.host,
-    port: readPort(env.MQTT_PORT, DEFAULTS.port),
+    port: readManagedPort(env),
     allowAnonymous: readBoolean(env.MQTT_ALLOW_ANONYMOUS, DEFAULTS.allowAnonymous),
     persistence: readBoolean(env.MQTT_PERSISTENCE, DEFAULTS.persistence),
     persistenceLocation:
