@@ -4,7 +4,7 @@
   "id": "piphi.service.mqtt-broker",
   "name": "MQTT Broker",
   "description": "Shared MQTT broker for PiPhi integrations and helpers.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "platforms": [
     "linux"
   ],
@@ -15,11 +15,10 @@
         "type": "none"
       },
       "container": {
-        "image": "piphinetwork/mqtt-broker:0.1.4",
+        "image": "piphinetwork/mqtt-broker:0.1.5",
         "ports": [
           {
-            "container": 1883,
-            "host": 1883
+            "container": 1883
           }
         ],
         "volumes": [
@@ -91,5 +90,10 @@
   },
   "onboarding": {
     "mode": "service"
+  },
+  "runtime_contract": {
+    "version": 1,
+    "port_binding": "core_allocated",
+    "port_env": "PORT"
   }
 }
